@@ -24,19 +24,21 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   ]
 
   return (
-    <div className="w-full">
-      <Accordion type="multiple">
-        {tabs.map((tab, i) => (
-          <Accordion.Item
-            key={i}
-            title={tab.label}
-            headingSize="medium"
-            value={tab.label}
-          >
-            {tab.component}
-          </Accordion.Item>
-        ))}
-      </Accordion>
+    <div id="product-info">
+      <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
+        <Accordion type="multiple">
+          {tabs.map((tab, i) => (
+            <Accordion.Item
+              key={i}
+              title={tab.label}
+              headingSize="medium"
+              value={tab.label}
+            >
+              {tab.component}
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </div>
     </div>
   )
 }

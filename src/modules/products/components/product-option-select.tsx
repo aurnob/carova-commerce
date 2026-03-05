@@ -1,8 +1,8 @@
 import { HttpTypes } from "@medusajs/types"
-import { clx } from "@medusajs/ui"
+import { clsx } from "clsx"
 import React from "react"
 
-type OptionSelectProps = {
+type ProductOptionSelectProps = {
   option: HttpTypes.StoreProductOption
   current: string | undefined
   updateOption: (title: string, value: string) => void
@@ -11,7 +11,7 @@ type OptionSelectProps = {
   "data-testid"?: string
 }
 
-const OptionSelect: React.FC<OptionSelectProps> = ({
+const ProductOptionSelect: React.FC<ProductOptionSelectProps> = ({
   option,
   current,
   updateOption,
@@ -29,16 +29,24 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
         data-testid={dataTestId}
       >
         {filteredOptions.map((v) => {
+          const isActive = v === current
           return (
             <button
               onClick={() => updateOption(option.id, v)}
               key={v}
-              className={clx(
-                "border-ui-border-base bg-ui-bg-subtle border text-small-regular h-10 rounded-rounded p-2 flex-1 ",
+              className={clsx(
+                "border text-sm font-medium px-4 py-2.5 flex-1 rounded-base transition-all duration-200 ease-in-out",
                 {
-                  "border-ui-border-interactive": v === current,
-                  "hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150":
-                    v !== current,
+                  // Active state
+                  "border-zinc-900 bg-zinc-50 text-zinc-900 shadow-sm":
+                    isActive,
+                  // Default state
+                  "border-zinc-300 bg-zinc-50 text-zinc-600": !isActive,
+                  // Hover states
+                  "hover:bg-zinc-100 hover:border-zinc-300 hover:text-zinc-900":
+                    !isActive && !disabled,
+                  // Disabled state
+                  "opacity-50 cursor-not-allowed": disabled,
                 }
               )}
               disabled={disabled}
@@ -53,4 +61,4 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   )
 }
 
-export default OptionSelect
+export default ProductOptionSelect

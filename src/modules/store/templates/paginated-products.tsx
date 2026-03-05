@@ -1,4 +1,4 @@
-import { listProductsWithSort } from "@lib/data/products"
+import { listProducts } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
@@ -55,13 +55,9 @@ export default async function PaginatedProducts({
     return null
   }
 
-  let {
-    response: { products, count },
-  } = await listProductsWithSort({
-    page,
-    queryParams,
-    sortBy,
-    countryCode,
+  const { products, count } = await listProducts({
+    page_param: page,
+    query_params: queryParams,
   })
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)

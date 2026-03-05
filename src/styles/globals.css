@@ -109,4 +109,41 @@
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+
+  .large-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  .product-image-container {
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    background-color: var(--color-brand-beige);
+  }
+
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .product-card:hover .product-image {
+    transform: scale(1.02);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-white);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brand-black);
+  }
 }
