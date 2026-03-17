@@ -79,6 +79,7 @@ const ProductActions = memo(function ProductActions({
 
     return variant
   }, [product?.variants, product?.options, selectedOptions])
+  console.log("parent variant: ", selectedVariant)
 
   // Notify parent component when variant changes
   useEffect(() => {

@@ -4,6 +4,7 @@ import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { sdk } from "@lib/utils/sdk"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -109,16 +110,32 @@ export default async function ProductPage(props: Props) {
     notFound()
   }
 
-  const pricedProduct = await listProducts({
-    countryCode: params.countryCode,
-    queryParams: { handle: params.handle },
-  }).then(({ response }) => response.products[0])
+  // const pricedProduct = await listProducts({
+  //   countryCode: params.countryCode,
+  //   queryParams: { handle: params.handle },
+  // }).then(({ response }) => response.products[0])
+  console.log("Region ID: ", params.countryCode)
+  const { products } = await sdk.client.fetch<{
+    products: HttpTypes.StoreProduct[]
+  }>(
+    `/store/products?handle=${params.handle}&region_id=${region.id}&fields=*variants,*variants.calculated_price,*variants.options,*images`,
+    {
+      next: { tags: [`products_${params.handle}`] },
+    }
+  )
 
-  const images = getImagesForVariant(pricedProduct, selectedVariantId)
+  const pricedProduct = products?.[0]
+
+  console.log(
+    "Variant price check:",
+    JSON.stringify(pricedProduct?.variants?.[0], null, 2)
+  )
 
   if (!pricedProduct) {
     notFound()
   }
+
+  const images = getImagesForVariant(pricedProduct, selectedVariantId)
 
   return (
     <ProductTemplate

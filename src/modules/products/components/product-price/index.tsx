@@ -19,6 +19,11 @@ export default function ProductPrice({
     variant_id: variant?.id,
   })
 
+  // DEBUG: See what is actually being found
+  console.log("Searching for ID:", variant?.id)
+  console.log("Found variant:", variant)
+  console.log("Selected variant price:", variantPrice)
+
   const selectedPrice = variant ? variantPrice : cheapestPrice
 
   if (!selectedPrice) {

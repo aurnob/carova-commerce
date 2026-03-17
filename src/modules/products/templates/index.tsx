@@ -1,10 +1,5 @@
 import React, { Suspense } from "react"
-
-// import ImageGallery from "@modules/products/components/image-gallery"
-import ImageGalleryEnhanced from "@modules/products/components/image-gallery-enhanced"
-// import ProductActions from "@modules/products/components/product-actions"
 import ProductOnboardingCta from "@modules/products/components/product-onboarding-cta"
-import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import { notFound } from "next/navigation"
@@ -24,10 +19,7 @@ type ProductTemplateProps = {
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
   product,
   region,
-  onvariantChange,
-  onOptionsChange,
   countryCode,
-  images,
 }) => {
   if (!product || !product.id) {
     return notFound()
